@@ -52,13 +52,17 @@ def save_to_excel(arr):
 
     col_names = ['Brand', 'Product', 'Sale Price', 'Regular Price', 'Unit of measurement']
     #Write all column names to file
-    for x in range(1, len(col_names)):
-        ws.cell(row=1, column=x, value=col_names[x-1])
+    for col, col_name in enumerate(col_names, start=1):
+        ws.cell(row=1, column=col, value=col_name)
 
     #Write all sale data to file
-    for x in range(1, len(arr)):
-        for y in range(2, len(arr[x]) + 2):
-            ws.cell(row=y, column=x, value=arr[x-1][y-2])
+
+    #Loop through columns
+    for x, sale_property in enumerate(arr, start=1):
+
+        #Loop through rows starting beneath col names
+        for y, data in enumerate(sale_property, start=2):
+            ws.cell(row=y, column=x, value=data)
 
     wb.save('output.xlsx')
 
